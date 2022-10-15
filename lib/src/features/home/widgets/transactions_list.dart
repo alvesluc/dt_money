@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../shared/extensions.dart';
 import '../models/transaction.dart';
 import 'transaction.dart';
 
@@ -22,7 +23,18 @@ class TransactionsList extends StatelessWidget {
       type: TransactionType.expense,
     );
 
-    return Builder(builder: (_) {
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.isDesktop) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Transaction(transaction: incomeTransaction, isMobile: false),
+            const SizedBox(height: 12),
+            Transaction(transaction: expenseTransaction, isMobile: false),
+            const SizedBox(height: 12),
+          ],
+        );
+      }
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [

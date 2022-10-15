@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../shared/colors.dart';
-import '../../shared/extensions.dart';
 import 'models/total_balance.dart';
 import 'models/total_expenses.dart';
 import 'models/total_income.dart';
@@ -28,7 +27,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.isMobile) {
         return Scaffold(
           backgroundColor: AppColors.gray2,
           extendBodyBehindAppBar: true,
@@ -48,8 +46,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         );
-      }
-      return Container();
     });
   }
 }
