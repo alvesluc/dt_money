@@ -30,13 +30,6 @@ class TransactionsList extends StatelessWidget {
           const SizedBox(height: 12),
           Transaction(transaction: expenseTransaction),
           const SizedBox(height: 12),
-          Transaction(transaction: incomeTransaction),
-          const SizedBox(height: 12),
-          Transaction(transaction: expenseTransaction),
-          const SizedBox(height: 12),
-          Transaction(transaction: incomeTransaction),
-          const SizedBox(height: 12),
-          Transaction(transaction: expenseTransaction),
         ],
       );
     });

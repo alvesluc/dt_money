@@ -90,7 +90,7 @@ class Transaction extends StatelessWidget {
                   ),
                   SizedBox(width: 4),
                   Text(
-                    '13/04/2022',
+                    '15/10/2022',
                     style: TextStyle(
                       fontSize: 16,
                       color: AppColors.gray5,

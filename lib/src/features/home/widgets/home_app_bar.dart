@@ -1,9 +1,8 @@
-
-
 import 'package:flutter/material.dart';
 
 import '../../../shared/colors.dart';
 import '../../../shared/widgets/primary_button.dart';
+import '../../new_transaction/new_transaction_sheet.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
@@ -20,10 +19,24 @@ class HomeAppBar extends StatelessWidget {
           Image.asset('assets/images/Logo.png'),
           PrimaryButton(
             label: 'Nova transação',
-            onPressed: () {},
+            onPressed: () => _showNewTransactionForm(context),
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showNewTransactionForm(context) async {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: AppColors.gray2,
+      builder: (context) {
+        return const NewTransactionSheet();
+      },
     );
   }
 }

@@ -58,7 +58,7 @@ class IncomeCard extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           const Text(
-            'Última entrada em 13 de abril',
+            'Última entrada em 15 de outubro',
             style: TextStyle(
               color: AppColors.gray5,
             ),

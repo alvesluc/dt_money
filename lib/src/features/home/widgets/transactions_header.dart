@@ -1,3 +1,4 @@
+import 'package:dt_money/src/shared/widgets/default_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -24,7 +25,7 @@ class TransactionsHeader extends StatelessWidget {
                 ),
               ),
               Text(
-                '6 itens',
+                '2 itens',
                 style: TextStyle(
                   fontSize: 16,
                   color: AppColors.gray5,
@@ -39,25 +40,8 @@ class TransactionsHeader extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    fillColor: AppColors.gray1,
-                    filled: true,
-                    hintText: 'Busque por uma transação',
-                    hintStyle: const TextStyle(
-                      fontSize: 16,
-                      color: AppColors.gray5,
-                      height: 1.4,
-                    ),
-                    contentPadding: const EdgeInsets.all(16),
-                    isDense: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
+              const Expanded(
+                child: DefaultTextField(hint: 'Busque por uma transação'),
               ),
               const SizedBox(width: 8),
               OutlinedButton(
