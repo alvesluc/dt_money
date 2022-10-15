@@ -25,14 +25,19 @@ class TransactionsList extends StatelessWidget {
 
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.isDesktop) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Transaction(transaction: incomeTransaction, isMobile: false),
-            const SizedBox(height: 12),
-            Transaction(transaction: expenseTransaction, isMobile: false),
-            const SizedBox(height: 12),
-          ],
+        return Align(
+          alignment: Alignment.center,
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 1168),
+            child: Column(
+              children: [
+                Transaction(transaction: incomeTransaction, isMobile: false),
+                const SizedBox(height: 12),
+                Transaction(transaction: expenseTransaction, isMobile: false),
+                const SizedBox(height: 12),
+              ],
+            ),
+          ),
         );
       }
       return Column(
