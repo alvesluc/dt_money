@@ -9,9 +9,11 @@ class TotalBalanceCard extends StatelessWidget {
   const TotalBalanceCard({
     super.key,
     required this.totalBalance,
+    this.isMobile = true,
   });
 
   final TotalBalanceModel totalBalance;
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +35,16 @@ class TotalBalanceCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 'Total',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: isMobile ? 16 : 20,
                   color: AppColors.gray6,
                   height: 1.6,
                 ),
               ),
-              Icon(
+              const Icon(
                 PhosphorIcons.currencyDollar,
                 color: AppColors.white,
                 size: 32,
@@ -52,9 +54,9 @@ class TotalBalanceCard extends StatelessWidget {
           const SizedBox(height: 14),
           Text(
             'R\$ ${totalBalance.value.toCurrency()}',
-            style: const TextStyle(
+            style: TextStyle(
               height: 1.4,
-              fontSize: 24,
+              fontSize: isMobile ? 24 : 32,
               fontWeight: FontWeight.bold,
               color: AppColors.gray7,
             ),

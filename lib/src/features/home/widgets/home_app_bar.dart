@@ -1,3 +1,4 @@
+import 'package:dt_money/src/shared/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/colors.dart';
@@ -9,21 +10,45 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      height: 200,
-      color: AppColors.gray1,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Image.asset('assets/images/Logo.png'),
-          PrimaryButton(
-            label: 'Nova transação',
-            onPressed: () => _showNewTransactionForm(context),
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 1120) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          height: 200,
+          color: AppColors.gray1,
+          alignment: Alignment.center, 
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 1120),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset('assets/images/Logo.png'),
+                PrimaryButton(
+                  label: 'Nova transação',
+                  onPressed: () => _showNewTransactionForm(context),
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
-    );
+        );
+      }
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        height: 200,
+        color: AppColors.gray1,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset('assets/images/Logo.png'),
+            PrimaryButton(
+              label: 'Nova transação',
+              onPressed: () => _showNewTransactionForm(context),
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   Future<void> _showNewTransactionForm(context) async {

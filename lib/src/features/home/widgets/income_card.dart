@@ -6,9 +6,14 @@ import '../../../shared/extensions.dart';
 import '../models/total_income.dart';
 
 class IncomeCard extends StatelessWidget {
-  const IncomeCard({super.key, required this.totalIncome});
+  const IncomeCard({
+    super.key,
+    required this.totalIncome,
+    this.isMobile = true,
+  });
 
   final TotalIncomeModel totalIncome;
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +35,16 @@ class IncomeCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 'Entradas',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: isMobile ? 16 : 20,
                   color: AppColors.gray6,
                   height: 1.6,
                 ),
               ),
-              Icon(
+              const Icon(
                 PhosphorIcons.arrowCircleUp,
                 color: AppColors.greenLight,
                 size: 32,
@@ -47,11 +52,11 @@ class IncomeCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-           Text(
+          Text(
             'R\$ ${totalIncome.value.toCurrency()}',
-            style: const TextStyle(
+            style: TextStyle(
               height: 1.4,
-              fontSize: 24,
+              fontSize: isMobile ? 24 : 32,
               fontWeight: FontWeight.bold,
               color: AppColors.gray7,
             ),

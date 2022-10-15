@@ -9,9 +9,11 @@ class ExpensesCard extends StatelessWidget {
   const ExpensesCard({
     super.key,
     required this.totalExpenses,
+    this.isMobile = true,
   });
 
   final TotalExpensesModel totalExpenses;
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +35,16 @@ class ExpensesCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 'Saídas',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: isMobile ? 16 : 20,
                   color: AppColors.gray6,
                   height: 1.6,
                 ),
               ),
-              Icon(
+              const Icon(
                 PhosphorIcons.arrowCircleDown,
                 color: AppColors.red,
                 size: 32,
@@ -52,16 +54,16 @@ class ExpensesCard extends StatelessWidget {
           const SizedBox(height: 14),
           Text(
             'R\$ ${totalExpenses.value.toCurrency()}',
-            style: const TextStyle(
+            style: TextStyle(
               height: 1.4,
-              fontSize: 24,
+              fontSize: isMobile ? 24 : 32,
               fontWeight: FontWeight.bold,
               color: AppColors.gray7,
             ),
           ),
           const SizedBox(height: 2),
           const Text(
-           'Última entrada em 15 de outubro',
+            'Última entrada em 15 de outubro',
             style: TextStyle(
               color: AppColors.gray5,
             ),
