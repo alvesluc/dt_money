@@ -1,16 +1,37 @@
-# dt_money
+# DT Money 
 
-A new Flutter project.
+![DT Money cover](https://user-images.githubusercontent.com/42820357/196014162-82269eaf-127c-42bd-ad15-e2f2d457be53.png)
 
-## Getting Started
+## About
 
-This project is a starting point for a Flutter application.
+This project was initially developed with React, in a event called Next Level Week, which is a intense week of free content with an amazing quality.
+In this state the application data is just placeholders, futher work will be done and it will be a simple, but functional project.
 
-A few resources to get you started if this is your first Flutter project:
+Runs on Web, Android and iOS.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Design
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+All design files and asssets used can be found [here](https://www.figma.com/community/file/1138814493269096792).
+
+## How to use 
+In web you can access it via this [link](https://alvesluc.github.io/dt_money).
+
+---
+
+Or you can run it locally with a device of your preference.
+
+<h3>If you don't have the Flutter SDK installed in you machine head to: https://flutter.dev/docs/get-started/install.</h3>
+
+- Clone this repository:
+```
+$ git clone https://github.com/alvesluc/dt_money.git
+```
+- Access the directory:
+```
+$ cd dt_money
+```
+- Run the app:
+```
+$ flutter run
+```
+
