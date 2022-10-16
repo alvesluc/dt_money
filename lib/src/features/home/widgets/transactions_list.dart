@@ -11,15 +11,15 @@ class TransactionsList extends StatelessWidget {
   Widget build(BuildContext context) {
     final incomeTransaction = TransactionModel(
       description: 'Desenvolvimento de aplicativo',
-      price: 12000,
-      tag: 'Venda',
+      value: 12000,
+      category: 'Venda',
       type: TransactionType.income,
     );
 
     final expenseTransaction = TransactionModel(
       description: 'Aluguel',
-      price: 2000,
-      tag: 'Casa',
+      value: 2000,
+      category: 'Casa',
       type: TransactionType.expense,
     );
 

@@ -44,7 +44,7 @@ class Transaction extends StatelessWidget {
                     switch (transaction.type) {
                       case TransactionType.income:
                         return Text(
-                          'R\$ ${transaction.price.toCurrency()}',
+                          'R\$ ${transaction.value.toCurrency()}',
                           style: const TextStyle(
                             color: AppColors.greenLight,
                             fontSize: 20,
@@ -54,7 +54,7 @@ class Transaction extends StatelessWidget {
                         );
                       case TransactionType.expense:
                         return Text(
-                          '- R\$ ${transaction.price.toCurrency()}',
+                          '- R\$ ${transaction.value.toCurrency()}',
                           style: const TextStyle(
                             color: AppColors.red,
                             fontSize: 20,
@@ -132,7 +132,7 @@ class Transaction extends StatelessWidget {
                       switch (transaction.type) {
                         case TransactionType.income:
                           return Text(
-                            'R\$ ${transaction.price.toCurrency()}',
+                            'R\$ ${transaction.value.toCurrency()}',
                             style: const TextStyle(
                               color: AppColors.greenLight,
                               fontSize: 16,
@@ -143,7 +143,7 @@ class Transaction extends StatelessWidget {
                           );
                         case TransactionType.expense:
                           return Text(
-                            '- R\$ ${transaction.price.toCurrency()}',
+                            '- R\$ ${transaction.value.toCurrency()}',
                             style: const TextStyle(
                               color: AppColors.red,
                               fontSize: 16,
