@@ -32,9 +32,8 @@ class TransactionsList extends StatelessWidget {
             child: Column(
               children: [
                 Transaction(transaction: incomeTransaction, isMobile: false),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Transaction(transaction: expenseTransaction, isMobile: false),
-                const SizedBox(height: 12),
               ],
             ),
           ),

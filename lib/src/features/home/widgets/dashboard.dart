@@ -1,4 +1,3 @@
-import 'package:dt_money/src/shared/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../models/total_balance.dart';

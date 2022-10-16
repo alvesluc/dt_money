@@ -1,12 +1,12 @@
-import 'package:dt_money/src/features/new_transaction/widgets/toggleable_expense_button.dart';
-import 'package:dt_money/src/features/new_transaction/widgets/toggleable_income_button.dart';
-import 'package:dt_money/src/shared/text_field_validators.dart';
-import 'package:dt_money/src/shared/widgets/default_textfield.dart';
-import 'package:dt_money/src/shared/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../shared/colors.dart';
+import '../../shared/text_field_validators.dart';
+import '../../shared/widgets/default_textfield.dart';
+import '../../shared/widgets/primary_button.dart';
+import 'widgets/toggleable_expense_button.dart';
+import 'widgets/toggleable_income_button.dart';
 
 class NewTransactionSheet extends StatefulWidget {
   const NewTransactionSheet({super.key});
