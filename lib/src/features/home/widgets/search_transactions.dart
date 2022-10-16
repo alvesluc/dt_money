@@ -72,7 +72,6 @@ class SearchTransactions extends StatelessWidget {
                           onPressed: () {},
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.transparent,
-                            padding: const EdgeInsets.all(16),
                             minimumSize: const Size(0, 0),
                             side: const BorderSide(
                               width: 1,
@@ -86,7 +85,7 @@ class SearchTransactions extends StatelessWidget {
                           child: const Icon(
                             PhosphorIcons.magnifyingGlassBold,
                             color: AppColors.greenLight,
-                            size: 22,
+                            size: 20,
                           ),
                         );
                       },

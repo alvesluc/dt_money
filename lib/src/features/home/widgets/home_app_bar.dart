@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/colors.dart';
 import '../../../shared/widgets/primary_button.dart';
+import '../../new_transaction/new_transaction_dialog.dart';
 import '../../new_transaction/new_transaction_sheet.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -52,16 +54,27 @@ class HomeAppBar extends StatelessWidget {
   }
 
   Future<void> _showNewTransactionForm(context) async {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      backgroundColor: AppColors.gray2,
-      builder: (context) {
-        return const NewTransactionSheet();
-      },
-    );
+    if (kIsWeb) {
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierColor: const Color.fromRGBO(0, 0, 0, 0.75),
+        builder: (context) {
+          return const NewTransactionDialog();
+        },
+      );
+    } else {
+      showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        backgroundColor: AppColors.gray2,
+        builder: (context) {
+          return const NewTransactionSheet();
+        },
+      );
+    }
   }
 }

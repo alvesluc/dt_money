@@ -15,32 +15,35 @@ class ToggleableIncomeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onPressed,
-      style: TextButton.styleFrom(
-        backgroundColor: isSelected ? AppColors.greenDark : AppColors.gray3,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(6)),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            PhosphorIcons.arrowCircleUp,
-            color: isSelected ? AppColors.white : AppColors.greenLight,
+    return SizedBox(
+      height: 58,
+      child: TextButton(
+        onPressed: onPressed,
+        style: TextButton.styleFrom(
+          backgroundColor: isSelected ? AppColors.greenDark : AppColors.gray3,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(6)),
           ),
-          const SizedBox(width: 8),
-          const Text(
-            'Entrada',
-            style: TextStyle(
-              fontSize: 16,
-              color: AppColors.white,
-              height: 1.6,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              PhosphorIcons.arrowCircleUp,
+              color: isSelected ? AppColors.white : AppColors.greenLight,
             ),
-          )
-        ],
+            const SizedBox(width: 8),
+            const Text(
+              'Entrada',
+              style: TextStyle(
+                fontSize: 16,
+                color: AppColors.white,
+                height: 1.6,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
