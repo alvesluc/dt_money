@@ -11,16 +11,16 @@ Runs on Web, Android and iOS.
 
 ## Design
 
-All design files and asssets used can be found [here](https://www.figma.com/community/file/1138814493269096792).
+All design files and assets used can be found [here](https://www.figma.com/community/file/1138814493269096792).
 
 ## How to use 
 In web you can access it via this [link](https://alvesluc.github.io/dt_money).
 
 ---
 
-Or you can run it locally with a device of your preference.
+Or you can run it locally with a device of your preference by following the next steps.
 
-<h3>If you don't have the Flutter SDK installed in you machine head to: https://flutter.dev/docs/get-started/install.</h3>
+<h4>If you don't have the Flutter SDK installed in you machine head to: https://flutter.dev/docs/get-started/install.</h4>
 
 - Clone this repository:
 ```
