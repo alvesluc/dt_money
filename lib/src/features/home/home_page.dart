@@ -8,6 +8,7 @@ import 'models/total_income.dart';
 import 'widgets/dashboard.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/made_with_love.dart';
+import 'widgets/search_transactions.dart';
 import 'widgets/transactions_header.dart';
 import 'widgets/transactions_list.dart';
 
@@ -40,6 +41,7 @@ class _HomePageState extends State<HomePage> {
                 totalBalance: totalBalance,
               ),
               const TransactionsHeader(),
+              const SearchTransactions(),
               const TransactionsList(),
               const SizedBox(height: 8),
               const MadeWithLoveByAlvesLuc()
