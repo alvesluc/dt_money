@@ -27,27 +27,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    return LayoutBuilder(builder: (context, constraints) {
-        return Scaffold(
-          backgroundColor: AppColors.gray2,
-          extendBodyBehindAppBar: true,
-          body: ListView(
-            padding: const EdgeInsets.only(),
-            children: [
-              const HomeAppBar(),
-              Dashboard(
-                totalIncome: totalIncome,
-                totalExpenses: totalExpenses,
-                totalBalance: totalBalance,
-              ),
-              const TransactionsHeader(),
-              const SearchTransactions(),
-              const TransactionsList(),
-              const SizedBox(height: 8),
-              const MadeWithLoveByAlvesLuc()
-            ],
+    return Scaffold(
+      backgroundColor: AppColors.gray2,
+      extendBodyBehindAppBar: true,
+      body: ListView(
+        padding: const EdgeInsets.only(),
+        children: [
+          const HomeAppBar(),
+          Dashboard(
+            totalIncome: totalIncome,
+            totalExpenses: totalExpenses,
+            totalBalance: totalBalance,
           ),
-        );
-    });
+          const TransactionsHeader(),
+          const SearchTransactions(),
+          const TransactionsList(),
+          const SizedBox(height: 8),
+          const MadeWithLoveByAlvesLuc()
+        ],
+      ),
+    );
   }
 }

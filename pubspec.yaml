@@ -15,6 +15,7 @@ dependencies:
   phosphor_flutter: ^1.4.0
   intl: ^0.17.0
   url_launcher: ^6.1.6
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

@@ -7,15 +7,18 @@ class DefaultTextField extends StatelessWidget {
     super.key,
     required this.hint,
     this.validator,
+    this.onChanged,
   });
 
   final String hint;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       style: const TextStyle(color: AppColors.white),
+      onChanged: onChanged,
       decoration: InputDecoration(
         fillColor: AppColors.gray1,
         filled: true,
