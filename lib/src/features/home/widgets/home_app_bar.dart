@@ -11,7 +11,7 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > 1120) {
+      if (constraints.maxWidth > 720) {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           height: 200,
