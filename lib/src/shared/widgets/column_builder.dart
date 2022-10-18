@@ -5,7 +5,6 @@ class ColumnBuilder extends StatelessWidget {
     Key? key,
     required this.itemBuilder,
     required this.itemCount,
-    this.separatorBuilder,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.mainAxisSize = MainAxisSize.max,
     this.crossAxisAlignment = CrossAxisAlignment.center,
@@ -15,7 +14,6 @@ class ColumnBuilder extends StatelessWidget {
 
   final IndexedWidgetBuilder itemBuilder;
   final MainAxisAlignment mainAxisAlignment;
-  final IndexedWidgetBuilder? separatorBuilder;
   final MainAxisSize mainAxisSize;
   final CrossAxisAlignment crossAxisAlignment;
   final TextDirection? textDirection;
@@ -28,18 +26,9 @@ class ColumnBuilder extends StatelessWidget {
       children: List.generate(
         itemCount,
         (index) {
-          if (separatorBuilder == null) {
-            return itemBuilder(context, index);
-          } else {
-            final int itemIndex = index ~/ 2;
-            if (index.isEven) {
-              return itemBuilder(context, itemIndex);
-            } else {
-              return separatorBuilder!(context, itemIndex);
-            }
-          }
+          return itemBuilder(context, index);
         },
-      ).toList(),
+      ).reversed.toList(),
     );
   }
 }

@@ -22,24 +22,19 @@ class _TransactionsListState extends State<TransactionsList> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<TransactionsStore>().getTransactions();
     });
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   TransactionsProvider.of(context).getTransactions();
-    // });
   }
 
   @override
   Widget build(BuildContext context) {
     final store = context.watch<TransactionsStore>();
     final state = store.value;
-    // final store = TransactionsProvider.of(context);
-    // final state = store.value;
 
     if (state is LoadingTransactionsState) {
       return const CircularProgressIndicator.adaptive();
     }
 
     if (state is ErrorTransactionsState) {
-      return const Text('Não foi possível recuperar suas transações');
+      return Text(state.message);
     }
 
     if (state is SuccessTransactionsState) {
@@ -56,19 +51,28 @@ class _TransactionsListState extends State<TransactionsList> {
                   child: ColumnBuilder(
                     itemCount: state.transactions.length,
                     itemBuilder: (context, i) {
-                      return Transaction(transaction: state.transactions[i]);
+                      return Column(
+                        children: [
+                          Transaction(transaction: state.transactions[i]),
+                          const SizedBox(height: 8),
+                        ],
+                      );
                     },
-                    separatorBuilder: (context, i) => const SizedBox(height: 8),
                   ),
                 ),
               );
             }
             return ColumnBuilder(
               itemCount: state.transactions.length,
+              verticalDirection: VerticalDirection.up,
               itemBuilder: (context, i) {
-                return Transaction(transaction: state.transactions[i]);
+                return Column(
+                  children: [
+                    Transaction(transaction: state.transactions[i]),
+                    const SizedBox(height: 12),
+                  ],
+                );
               },
-              separatorBuilder: (context, i) => const SizedBox(height: 12),
             );
           }),
         ],

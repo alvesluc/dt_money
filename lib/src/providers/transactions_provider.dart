@@ -3,26 +3,11 @@ import 'package:flutter/material.dart';
 import '../features/home/models/transaction.dart';
 import '../services/local_storage_service.dart';
 
-// class TransactionsProvider extends InheritedNotifier<TransactionsStore> {
-//   const TransactionsProvider({
-//     super.key,
-//     required super.notifier,
-//     required super.child,
-//   });
-
-//   static TransactionsStore of(BuildContext context) {
-//     return context.dependOnInheritedWidgetOfExactType<TransactionsProvider>()!.notifier!;
-//   }
-// }
-
 class TransactionsStore extends ValueNotifier<TransactionsState> {
-  TransactionsStore(this._transactionsService)
-      : super(InitialTransactionsState());
+  TransactionsStore(this._transactionsService) : super(InitialTransactionsState());
 
   final TransactionsService _transactionsService;
 
-  /// Used to refresh the screen without fetching extra times from local 
-  /// storage.
   late List<TransactionModel> _localTransactions;
 
   Future<void> getTransactions() async {
@@ -64,9 +49,7 @@ class TransactionsService {
   }
 
   bool _isTransactionValid(TransactionModel transaction) {
-    return transaction.description.isNotEmpty &&
-        transaction.value > 0 &&
-        transaction.category.isNotEmpty;
+    return transaction.description.isNotEmpty && transaction.value > 0 && transaction.category.isNotEmpty;
   }
 }
 

@@ -110,8 +110,7 @@ class _NewTransactionSheetState extends State<NewTransactionSheet> {
   }
 
   Future<void> validateForm(BuildContext context) async {
-    final transactionsProvider = context.read<TransactionsStore>();
-    // final transactionsProvider = TransactionsProvider.of(context);
+    final transactionStore = context.read<TransactionsStore>();
 
     if (formKey.currentState!.validate()) {
       final transaction = TransactionModel(
@@ -121,7 +120,7 @@ class _NewTransactionSheetState extends State<NewTransactionSheet> {
         type: TransactionType.values.byName(store.typeNotifier.value.name),
       );
 
-      await transactionsProvider.addTransaction(transaction);
+      await transactionStore.addTransaction(transaction);
       Navigator.pop(context);
     }
   }

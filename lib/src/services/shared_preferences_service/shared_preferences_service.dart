@@ -19,12 +19,6 @@ class SharedPreferencesImpl implements LocalStorageService {
     sharedPreferences.setString('transactions', _toJson(transactions));
   }
 
-  @override
-  Future<void> setTransactions(List<TransactionModel> transactions) async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString('transactions', _toJson(transactions));
-  }
-
   Future<List<TransactionModel>> _getStoredTransactions() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     final storedTransactionsJson = sharedPreferences.getString('transactions');

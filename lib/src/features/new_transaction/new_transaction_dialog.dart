@@ -110,9 +110,6 @@ class _NewTransactionDialogState extends State<NewTransactionDialog> {
 
   Future<void> validateForm(BuildContext context) async {
     final transactionsProvider = context.read<TransactionsStore>();
-
-    // final transactionsProvider = TransactionsProvider.of(context);
-
     if (formKey.currentState!.validate()) {
       final transaction = TransactionModel(
         description: store.description,
