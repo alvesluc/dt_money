@@ -1,3 +1,4 @@
+import 'package:dt_money/src/providers/transactions_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -39,8 +40,6 @@ class _HomePageState extends State<HomePage> {
             totalExpenses: totalExpenses,
             totalBalance: totalBalance,
           ),
-          const TransactionsHeader(),
-          const SearchTransactions(),
           const TransactionsList(),
           const SizedBox(height: 8),
           const MadeWithLoveByAlvesLuc()

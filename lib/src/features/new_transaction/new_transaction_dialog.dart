@@ -1,11 +1,13 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../services/shared_preferences_service/shared_preferences_service.dart';
+import '../../providers/transactions_provider.dart';
 import '../../shared/colors.dart';
 import '../../shared/text_field_validators.dart';
 import '../../shared/widgets/default_textfield.dart';
 import '../../shared/widgets/primary_button.dart';
+import '../home/models/transaction.dart';
 import 'new_transaction_store.dart';
 import 'widgets/new_transaction_header.dart';
 import 'widgets/toggleable_buttons_row.dart';
@@ -20,7 +22,7 @@ class NewTransactionDialog extends StatefulWidget {
 class _NewTransactionDialogState extends State<NewTransactionDialog> {
   final formKey = GlobalKey<FormState>();
 
-  final store = NewTransactionStore(SharedPreferencesImpl());
+  final store = NewTransactionStore();
 
   final currencyFormatter = CurrencyTextInputFormatter(
     decimalDigits: 2,
@@ -106,9 +108,20 @@ class _NewTransactionDialogState extends State<NewTransactionDialog> {
     );
   }
 
-  Future<void> validateForm(context) async {
+  Future<void> validateForm(BuildContext context) async {
+    final transactionsProvider = context.read<TransactionsStore>();
+
+    // final transactionsProvider = TransactionsProvider.of(context);
+
     if (formKey.currentState!.validate()) {
-      await store.addTransaction();
+      final transaction = TransactionModel(
+        description: store.description,
+        value: store.value,
+        category: store.category,
+        type: TransactionType.values.byName(store.typeNotifier.value.name),
+      );
+
+      await transactionsProvider.addTransaction(transaction);
       Navigator.pop(context);
     }
   }

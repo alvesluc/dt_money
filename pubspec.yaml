@@ -17,6 +17,7 @@ dependencies:
   url_launcher: ^6.1.6
   shared_preferences: ^2.0.15
   currency_text_input_formatter: ^2.1.7
+  provider: ^6.0.4
 
 dev_dependencies:
   flutter_test:

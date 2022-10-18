@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'features/home/home_page.dart';
+import 'providers/transactions_provider.dart';
+import 'services/local_storage_service.dart';
+import 'services/shared_preferences_service/shared_preferences_service.dart';
 import 'shared/colors.dart';
 
 class MyApp extends StatelessWidget {
@@ -8,11 +12,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
-      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-      home: const HomePage(),
+    return MultiProvider(
+      providers: [
+        Provider<LocalStorageService>(
+          create: (_) => SharedPreferencesImpl(),
+        ),
+        Provider(
+          create: (context) => TransactionsService(context.read()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TransactionsStore(context.read()),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+        darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+        home: const HomePage(),
+      ),
     );
+    // return TransactionsProvider(
+    //   notifier: TransactionsStore(TransactionsService(SharedPreferencesImpl())),
+    //   child: MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+    //     darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+    //     home: const HomePage(),
+    //   ),
+    // );
   }
 }
