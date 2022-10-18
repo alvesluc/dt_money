@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/colors.dart';
@@ -12,7 +11,7 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > 1120) {
+      if (constraints.maxWidth > 720) {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           height: 200,
@@ -28,7 +27,7 @@ class HomeAppBar extends StatelessWidget {
                 PrimaryButton(
                   label: 'Nova transação',
                   buttonSize: ButtonSize.medium,
-                  onPressed: () => _showNewTransactionForm(context),
+                  onPressed: () => _showNewTransactionDialog(context),
                 ),
               ],
             ),
@@ -53,28 +52,28 @@ class HomeAppBar extends StatelessWidget {
     });
   }
 
+  Future<void> _showNewTransactionDialog(context) async {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: const Color.fromRGBO(0, 0, 0, 0.75),
+      builder: (context) {
+        return const NewTransactionDialog();
+      },
+    );
+  }
+
   Future<void> _showNewTransactionForm(context) async {
-    if (kIsWeb) {
-      showDialog(
-        context: context,
-        barrierDismissible: true,
-        barrierColor: const Color.fromRGBO(0, 0, 0, 0.75),
-        builder: (context) {
-          return const NewTransactionDialog();
-        },
-      );
-    } else {
-      showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        backgroundColor: AppColors.gray2,
-        builder: (context) {
-          return const NewTransactionSheet();
-        },
-      );
-    }
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: AppColors.gray2,
+      builder: (context) {
+        return const NewTransactionSheet();
+      },
+    );
   }
 }

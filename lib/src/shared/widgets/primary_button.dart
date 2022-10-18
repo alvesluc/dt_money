@@ -8,18 +8,20 @@ class PrimaryButton extends StatelessWidget {
     required this.label,
     required this.onPressed,
     this.buttonSize = ButtonSize.small,
+    this.enabled = true,
   });
 
   final String label;
   final VoidCallback? onPressed;
   final ButtonSize buttonSize;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed,
+      onPressed: enabled ? onPressed : null,
       style: TextButton.styleFrom(
-        backgroundColor: onPressed != null ? AppColors.green : AppColors.gray5,
+        backgroundColor: enabled ? AppColors.green : AppColors.gray5,
         padding: buttonSize.padding,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(6.0)),

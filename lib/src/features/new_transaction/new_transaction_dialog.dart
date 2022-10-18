@@ -1,12 +1,16 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/transactions_provider.dart';
 import '../../shared/colors.dart';
 import '../../shared/text_field_validators.dart';
 import '../../shared/widgets/default_textfield.dart';
 import '../../shared/widgets/primary_button.dart';
-import 'widgets/toggleable_expense_button.dart';
-import 'widgets/toggleable_income_button.dart';
+import '../home/models/transaction.dart';
+import 'new_transaction_store.dart';
+import 'widgets/new_transaction_header.dart';
+import 'widgets/toggleable_buttons_row.dart';
 
 class NewTransactionDialog extends StatefulWidget {
   const NewTransactionDialog({super.key});
@@ -18,21 +22,24 @@ class NewTransactionDialog extends StatefulWidget {
 class _NewTransactionDialogState extends State<NewTransactionDialog> {
   final formKey = GlobalKey<FormState>();
 
-  var buttonsState = ToggleablesButtonsState.unselected;
+  final store = NewTransactionStore();
 
-  setButtonsState(ToggleablesButtonsState state) {
-    setState(() {
-      buttonsState = state;
-    });
+  final currencyFormatter = CurrencyTextInputFormatter(
+    decimalDigits: 2,
+    locale: 'pt_BR',
+    symbol: 'R\$',
+  );
+
+  var autovalidateMode = AutovalidateMode.onUserInteraction;
+
+  void setAutoValidateMode() {
+    setState(() => autovalidateMode = AutovalidateMode.always);
   }
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6)
-      ),
-
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
       backgroundColor: AppColors.gray2,
       child: Container(
         padding: const EdgeInsets.all(48),
@@ -43,81 +50,56 @@ class _NewTransactionDialogState extends State<NewTransactionDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Nova transação',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      height: 1.4,
-                      color: AppColors.white,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 24,
-                    width: 24,
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(
-                        PhosphorIcons.x,
-                        color: AppColors.gray5,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              const NewTransactionHeader(),
               const SizedBox(height: 24),
-              const DefaultTextField(
+              DefaultTextField(
                 hint: 'Descrição',
+                onChanged: store.setDescription,
                 validator: TextFieldValidators.validateNotEmpty,
+                autovalidateMode: autovalidateMode,
               ),
               const SizedBox(height: 12),
-              const DefaultTextField(
+              DefaultTextField(
                 hint: 'Preço',
-                validator: TextFieldValidators.validateNotEmpty,
+                initialValue: 'R\$ 0,00',
+                keyboardType: TextInputType.number,
+                inputFormatters: [currencyFormatter],
+                onChanged: (text) {
+                  num value = currencyFormatter.getUnformattedValue();
+                  store.setValue(value);
+                },
+                validator: (_) {
+                  return TextFieldValidators.validateNotZero(store.value);
+                },
+                autovalidateMode: autovalidateMode,
               ),
               const SizedBox(height: 12),
-              const DefaultTextField(
+              DefaultTextField(
                 hint: 'Categoria',
+                onChanged: store.setCategory,
                 validator: TextFieldValidators.validateNotEmpty,
+                autovalidateMode: autovalidateMode,
+              ),
+              const SizedBox(height: 16),
+              ToggleableButtonsRow(
+                transactionTypeNotifier: store.typeNotifier,
+                setIncome: store.typeNotifier.setIncome,
+                setExpense: store.typeNotifier.setExpense,
               ),
               const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: ToggleableIncomeButton(
-                      isSelected: buttonsState.state[0],
-                      onPressed: () {
-                        setButtonsState(ToggleablesButtonsState.income);
-                      },
+              ValueListenableBuilder(
+                valueListenable: store.typeNotifier,
+                builder: (context, type, _) {
+                  return SizedBox(
+                    width: double.maxFinite,
+                    child: PrimaryButton(
+                      label: 'Cadastrar',
+                      enabled: store.typeNotifier.hasValidType,
+                      onPressed: () => validateForm(context),
+                      buttonSize: ButtonSize.large,
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: ToggleableExpenseButton(
-                      isSelected: buttonsState.state[1],
-                      onPressed: () {
-                        setButtonsState(ToggleablesButtonsState.expense);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-              SizedBox(
-                width: double.maxFinite,
-                child: PrimaryButton(
-                  label: 'Cadastrar',
-                  onPressed: hasValidButtonState ? _createNewTransaction : null,
-                  buttonSize: ButtonSize.large,
-                ),
+                  );
+                },
               ),
             ],
           ),
@@ -126,22 +108,18 @@ class _NewTransactionDialogState extends State<NewTransactionDialog> {
     );
   }
 
-  _createNewTransaction() {
-    if (formKey.currentState!.validate() && hasValidButtonState) {
+  Future<void> validateForm(BuildContext context) async {
+    final transactionsProvider = context.read<TransactionsStore>();
+    if (formKey.currentState!.validate()) {
+      final transaction = TransactionModel(
+        description: store.description,
+        value: store.value,
+        category: store.category,
+        type: TransactionType.values.byName(store.typeNotifier.value.name),
+      );
+
+      await transactionsProvider.addTransaction(transaction);
       Navigator.pop(context);
     }
   }
-
-  bool get hasValidButtonState {
-    return buttonsState != ToggleablesButtonsState.unselected;
-  }
-}
-
-enum ToggleablesButtonsState {
-  unselected([false, false]),
-  income([true, false]),
-  expense([false, true]);
-
-  const ToggleablesButtonsState(this.state);
-  final List<bool> state;
 }
