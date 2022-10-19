@@ -1,3 +1,4 @@
+import 'package:dt_money/src/providers/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,13 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => TransactionsStore(context.read()),
-        )
+        ),
+        Provider(
+          create: (context) => DashboardService(context.read()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DashboardStore(context.read()),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

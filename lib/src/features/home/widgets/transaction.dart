@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../shared/colors.dart';
@@ -87,16 +88,16 @@ class Transaction extends StatelessWidget {
                         ],
                       ),
                       Row(
-                        children: const [
-                          Icon(
+                        children:  [
+                          const Icon(
                             PhosphorIcons.calendarBlank,
                             color: AppColors.gray5,
                             size: 16,
                           ),
-                          SizedBox(width: 4),
+                          const SizedBox(width: 4),
                           Text(
-                            '15/10/2022',
-                            style: TextStyle(
+                            DateFormat('dd/MM/y').format(transaction.entryDate),
+                            style: const TextStyle(
                               fontSize: 16,
                               color: AppColors.gray5,
                               height: 1.6,
@@ -155,16 +156,16 @@ class Transaction extends StatelessWidget {
                       }
                     }),
                     Row(
-                      children: const [
-                        Icon(
+                      children: [
+                        const Icon(
                           PhosphorIcons.tagSimple,
                           color: AppColors.gray5,
                           size: 16,
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
-                          'Venda',
-                          style: TextStyle(
+                          transaction.category,
+                          style: const TextStyle(
                             fontSize: 16,
                             color: AppColors.gray5,
                             height: 1.6,
@@ -173,16 +174,16 @@ class Transaction extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      children: const [
-                        Icon(
+                      children: [
+                        const Icon(
                           PhosphorIcons.calendarBlank,
                           color: AppColors.gray5,
                           size: 16,
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
-                          '15/10/2022',
-                          style: TextStyle(
+                          DateFormat('dd/MM/y').format(transaction.entryDate),
+                          style: const TextStyle(
                             fontSize: 16,
                             color: AppColors.gray5,
                             height: 1.6,
