@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../shared/colors.dart';
 import '../../../shared/extensions.dart';
-import '../models/total_income.dart';
 
 class IncomeCard extends StatelessWidget {
   const IncomeCard({
     super.key,
-    required this.totalIncome,
     this.isMobile = true,
+    required this.totalIncome,
+    this.lastEntry,
   });
 
-  final TotalIncomeModel totalIncome;
+  final double totalIncome;
+  final DateTime? lastEntry;
   final bool isMobile;
 
   @override
@@ -53,7 +55,7 @@ class IncomeCard extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            'R\$ ${totalIncome.value.toCurrency()}',
+            'R\$ ${totalIncome.toCurrency()}',
             style: TextStyle(
               height: 1.4,
               fontSize: isMobile ? 24 : 32,
@@ -62,9 +64,11 @@ class IncomeCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 2),
-          const Text(
-            'Última entrada em 15 de outubro',
-            style: TextStyle(
+          Text(
+            lastEntry != null
+                ? 'Última entrada: ${DateFormat('dd/MM/y').format(lastEntry!)}'
+                : '',
+            style: const TextStyle(
               color: AppColors.gray5,
             ),
           ),

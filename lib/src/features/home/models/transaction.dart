@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 enum TransactionType {
   income('income'),
   expense('expense');
@@ -14,12 +13,14 @@ class TransactionModel {
   final double value;
   final String category;
   final TransactionType type;
+  final DateTime entryDate;
 
   TransactionModel({
     required this.description,
     required this.value,
     required this.category,
     required this.type,
+    required this.entryDate,
   });
 
   Map<String, dynamic> toMap() {
@@ -28,15 +29,17 @@ class TransactionModel {
       'value': value,
       'category': category,
       'type': type.value,
+      'entryDate': entryDate.millisecondsSinceEpoch,
     };
   }
 
   factory TransactionModel.fromMap(Map<String, dynamic> map) {
     return TransactionModel(
-      description: map['description'],
-      value: map['value'].toDouble(),
-      category: map['category'],
+      description: map['description'] as String,
+      value: map['value'] as double,
+      category: map['category'] as String,
       type: TransactionType.values.byName(map['type']),
+      entryDate: DateTime.fromMillisecondsSinceEpoch(map['entryDate'] as int),
     );
   }
 
@@ -46,24 +49,6 @@ class TransactionModel {
     return TransactionModel.fromMap(
       json.decode(source) as Map<String, dynamic>,
     );
-  }
-
-  @override
-  bool operator ==(covariant TransactionModel other) {
-    if (identical(this, other)) return true;
-
-    return other.description == description &&
-        other.value == value &&
-        other.category == category &&
-        other.type == type;
-  }
-
-  @override
-  int get hashCode {
-    return description.hashCode ^
-        value.hashCode ^
-        category.hashCode ^
-        type.hashCode;
   }
 
   @override

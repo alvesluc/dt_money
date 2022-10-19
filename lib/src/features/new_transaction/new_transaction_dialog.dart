@@ -2,6 +2,7 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/dashboard_provider.dart';
 import '../../providers/transactions_provider.dart';
 import '../../shared/colors.dart';
 import '../../shared/text_field_validators.dart';
@@ -109,16 +110,21 @@ class _NewTransactionDialogState extends State<NewTransactionDialog> {
   }
 
   Future<void> validateForm(BuildContext context) async {
-    final transactionsProvider = context.read<TransactionsStore>();
+    final transactionStore = context.read<TransactionsStore>();
+    final dashboardStore = context.read<DashboardStore>();
+
     if (formKey.currentState!.validate()) {
       final transaction = TransactionModel(
         description: store.description,
         value: store.value,
         category: store.category,
         type: TransactionType.values.byName(store.typeNotifier.value.name),
+        entryDate: DateTime.now(),
       );
 
-      await transactionsProvider.addTransaction(transaction);
+      await transactionStore.addTransaction(transaction);
+      await dashboardStore.updateDashboard(transaction);
+
       Navigator.pop(context);
     }
   }

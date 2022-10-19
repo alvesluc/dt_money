@@ -1,4 +1,5 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:dt_money/src/providers/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../providers/transactions_provider.dart';
@@ -111,6 +112,7 @@ class _NewTransactionSheetState extends State<NewTransactionSheet> {
 
   Future<void> validateForm(BuildContext context) async {
     final transactionStore = context.read<TransactionsStore>();
+    final dashboardStore = context.read<DashboardStore>();
 
     if (formKey.currentState!.validate()) {
       final transaction = TransactionModel(
@@ -118,9 +120,12 @@ class _NewTransactionSheetState extends State<NewTransactionSheet> {
         value: store.value,
         category: store.category,
         type: TransactionType.values.byName(store.typeNotifier.value.name),
+        entryDate: DateTime.now(),
       );
 
       await transactionStore.addTransaction(transaction);
+      await dashboardStore.updateDashboard(transaction);
+      
       Navigator.pop(context);
     }
   }

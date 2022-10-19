@@ -1,18 +1,22 @@
+import 'package:dt_money/src/shared/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../shared/colors.dart';
-import '../../../shared/extensions.dart';
-import '../models/total_balance.dart';
 
 class TotalBalanceCard extends StatelessWidget {
   const TotalBalanceCard({
     super.key,
     required this.totalBalance,
     this.isMobile = true,
+    this.firstEntry,
+    this.lastEntry,
   });
 
-  final TotalBalanceModel totalBalance;
+  final double totalBalance;
+  final DateTime? firstEntry;
+  final DateTime? lastEntry;
   final bool isMobile;
 
   @override
@@ -53,7 +57,7 @@ class TotalBalanceCard extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            'R\$ ${totalBalance.value.toCurrency()}',
+            'R\$ ${totalBalance.toCurrency()}',
             style: TextStyle(
               height: 1.4,
               fontSize: isMobile ? 24 : 32,
@@ -62,9 +66,12 @@ class TotalBalanceCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 2),
-          const Text(
-            'De 15/03/22 até 13/04/22',
-            style: TextStyle(
+          Text(
+            firstEntry == null || lastEntry == null
+                ? ''
+                : 'De ${DateFormat('dd/MM/y').format(firstEntry!)} até ${DateFormat('dd/MM/y').format(lastEntry!)}',
+            // lastEntry != null ? 'Última saída: ${ DateFormat('dd/MM/y').format(lastEntry!)}': '',
+            style: const TextStyle(
               color: AppColors.gray6,
             ),
           ),
