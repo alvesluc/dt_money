@@ -53,7 +53,10 @@ class _TransactionsListState extends State<TransactionsList> {
                     itemBuilder: (context, i) {
                       return Column(
                         children: [
-                          Transaction(transaction: state.transactions[i]),
+                          Transaction(
+                            transaction: state.transactions[i],
+                            isMobile: false,
+                          ),
                           const SizedBox(height: 8),
                         ],
                       );

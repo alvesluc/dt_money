@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class DashboardModel {
   final double totalIncome;
-  final DateTime lastIncomeDate;
+  final DateTime? lastIncomeDate;
   final double totalExpenses;
-  final DateTime lastExpenseDate;
+  final DateTime? lastExpenseDate;
   final double totalBalance;
-  final DateTime firstEntry;
-  final DateTime lastEntry;
+  final DateTime? firstEntry;
+  final DateTime? lastEntry;
 
   DashboardModel(
     this.totalIncome,
