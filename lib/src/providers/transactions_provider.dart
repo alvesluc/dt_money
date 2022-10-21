@@ -10,11 +10,13 @@ class TransactionsStore extends ValueNotifier<TransactionsState> {
 
   late List<TransactionModel> _localTransactions;
 
+  final queriedTransactions = <TransactionModel>[];
+
   Future<void> getTransactions() async {
     value = LoadingTransactionsState();
     try {
       final transactions = await _transactionsService.getTransactions();
-      value = SuccessTransactionsState(transactions);
+      value = SuccessTransactionsState(transactions, queriedTransactions);
       _localTransactions = transactions;
     } catch (e) {
       value = ErrorTransactionsState(e.toString());
@@ -26,10 +28,20 @@ class TransactionsStore extends ValueNotifier<TransactionsState> {
     try {
       await _transactionsService.addTransaction(transaction);
       _localTransactions.add(transaction);
-      value = SuccessTransactionsState(_localTransactions);
+      value = SuccessTransactionsState(_localTransactions, queriedTransactions);
     } catch (e) {
       value = ErrorTransactionsState(e.toString());
     }
+  }
+
+  void searchTransaction(String query) {
+    queriedTransactions.clear();
+    for (var transaction in _localTransactions) {
+      if (transaction.toQuery().contains(query.toLowerCase())) {
+        queriedTransactions.add(transaction);
+      }
+    }
+    value = SuccessTransactionsState(_localTransactions, queriedTransactions);
   }
 }
 
@@ -49,7 +61,9 @@ class TransactionsService {
   }
 
   bool _isTransactionValid(TransactionModel transaction) {
-    return transaction.description.isNotEmpty && transaction.value > 0 && transaction.category.isNotEmpty;
+    return transaction.description.isNotEmpty &&
+        transaction.value > 0 &&
+        transaction.category.isNotEmpty;
   }
 }
 
@@ -61,8 +75,9 @@ class LoadingTransactionsState extends TransactionsState {}
 
 class SuccessTransactionsState extends TransactionsState {
   final List<TransactionModel> transactions;
+  final List<TransactionModel> queriedTransactions;
 
-  SuccessTransactionsState(this.transactions);
+  SuccessTransactionsState(this.transactions, this.queriedTransactions);
 }
 
 class ErrorTransactionsState extends TransactionsState {

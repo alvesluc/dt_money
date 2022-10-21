@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
 
+import '../../../providers/transactions_provider.dart';
 import '../../../shared/colors.dart';
 import '../../../shared/extensions.dart';
 import '../../../shared/widgets/default_textfield.dart';
 
-class SearchTransactions extends StatelessWidget {
+class SearchTransactions extends StatefulWidget {
   const SearchTransactions({super.key});
+
+  @override
+  State<SearchTransactions> createState() => _SearchTransactionsState();
+}
+
+class _SearchTransactionsState extends State<SearchTransactions> {
+  String query = '';
+
+  void _onChanged(String text) => query = text;
+
+  void _onSearch(BuildContext context) {
+    final transactionStore = context.read<TransactionsStore>();
+    transactionStore.searchTransaction(query);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +38,11 @@ class SearchTransactions extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Expanded(
-                    child: DefaultTextField(hint: 'Busque por uma transação'),
+                  Expanded(
+                    child: DefaultTextField(
+                      hint: 'Busque por uma transação',
+                      onChanged: _onChanged,
+                    ),
                   ),
                   const SizedBox(width: 8),
                   SizedBox(
@@ -32,7 +51,7 @@ class SearchTransactions extends StatelessWidget {
                       builder: (_) {
                         if (constraints.isDesktop) {
                           return OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () => _onSearch(context),
                             style: OutlinedButton.styleFrom(
                               backgroundColor: Colors.transparent,
                               padding: const EdgeInsets.symmetric(
@@ -69,7 +88,7 @@ class SearchTransactions extends StatelessWidget {
                           );
                         }
                         return OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () => _onSearch(context),
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             minimumSize: const Size(0, 0),
