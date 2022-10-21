@@ -1,22 +1,23 @@
 # DT Money 
 
-![DT Money cover](https://user-images.githubusercontent.com/42820357/196014162-82269eaf-127c-42bd-ad15-e2f2d457be53.png)
+![DT Money cover](https://user-images.githubusercontent.com/42820357/197095950-3597a1d5-d92a-46c1-bac1-1f7efbdfe3e3.png)
 
 ## About
 
 This project was initially developed with React, in a event called Next Level Week, which is a intense week of free content with an amazing quality.
-In this state the application data is just placeholders, futher work will be done and it will be a simple, but functional project.
-
 Runs on Web, Android and iOS.
+
+## Features
+Add new transactions (the dashboard and the transactions list updates whenever a new transaction is added).
+
+Search transactions.
 
 ## Design
 
 All design files and assets used can be found [here](https://www.figma.com/community/file/1138814493269096792).
 
 ## How to use 
-In web you can access it via this [link](https://alvesluc.github.io/dt_money).
-
----
+You can access it via this [link](https://alvesluc.github.io/dt_money).
 
 Or you can run it locally with a device of your preference by following the next steps.
 
@@ -24,14 +25,15 @@ Or you can run it locally with a device of your preference by following the next
 
 - Clone this repository:
 ```
-$ git clone https://github.com/alvesluc/dt_money.git
+git clone https://github.com/alvesluc/dt_money.git
 ```
 - Access the directory:
 ```
-$ cd dt_money
+cd dt_money
 ```
 - Run the app:
 ```
-$ flutter run
+flutter pub get
+flutter run
 ```
 
