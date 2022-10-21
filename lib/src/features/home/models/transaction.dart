@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
+import '../../../shared/extensions.dart';
+
 enum TransactionType {
   income('income'),
   expense('expense');
@@ -54,5 +58,9 @@ class TransactionModel {
   @override
   String toString() {
     return 'TransactionModel(description: $description, value: $value, category: $category, type: $type)';
+  }
+
+  String toQuery() {
+    return '($description ${value.toCurrency()} $category ${type.name} ${DateFormat('dd/MM/y').format(entryDate)})'.toLowerCase();
   }
 }

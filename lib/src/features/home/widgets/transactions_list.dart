@@ -44,39 +44,77 @@ class _TransactionsListState extends State<TransactionsList> {
           const SearchTransactions(),
           LayoutBuilder(builder: (context, constraints) {
             if (constraints.isDesktop) {
-              return Align(
-                alignment: Alignment.center,
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 1168),
-                  child: ColumnBuilder(
-                    itemCount: state.transactions.length,
-                    itemBuilder: (context, i) {
-                      return Column(
-                        children: [
-                          Transaction(
-                            transaction: state.transactions[i],
-                            isMobile: false,
-                          ),
-                          const SizedBox(height: 8),
-                        ],
-                      );
-                    },
+              if (store.queriedTransactions.isEmpty) {
+                return Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 1168),
+                    child: ColumnBuilder(
+                      itemCount: state.transactions.length,
+                      itemBuilder: (context, i) {
+                        return Column(
+                          children: [
+                            Transaction(
+                              transaction: state.transactions[i],
+                              isMobile: false,
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                ),
+                );
+              } else {
+                return Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 1168),
+                    child: ColumnBuilder(
+                      itemCount: state.queriedTransactions.length,
+                      itemBuilder: (context, i) {
+                        return Column(
+                          children: [
+                            Transaction(
+                              transaction: state.queriedTransactions[i],
+                              isMobile: false,
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                );
+              }
+            }
+            if (store.queriedTransactions.isEmpty) {
+              return ColumnBuilder(
+                itemCount: state.transactions.length,
+                verticalDirection: VerticalDirection.up,
+                itemBuilder: (context, i) {
+                  return Column(
+                    children: [
+                      Transaction(transaction: state.transactions[i]),
+                      const SizedBox(height: 12),
+                    ],
+                  );
+                },
+              );
+            } else {
+              return ColumnBuilder(
+                itemCount: state.queriedTransactions.length,
+                verticalDirection: VerticalDirection.up,
+                itemBuilder: (context, i) {
+                  return Column(
+                    children: [
+                      Transaction(transaction: state.queriedTransactions[i]),
+                      const SizedBox(height: 12),
+                    ],
+                  );
+                },
               );
             }
-            return ColumnBuilder(
-              itemCount: state.transactions.length,
-              verticalDirection: VerticalDirection.up,
-              itemBuilder: (context, i) {
-                return Column(
-                  children: [
-                    Transaction(transaction: state.transactions[i]),
-                    const SizedBox(height: 12),
-                  ],
-                );
-              },
-            );
           }),
         ],
       );
