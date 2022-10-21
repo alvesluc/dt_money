@@ -61,6 +61,6 @@ class TransactionModel {
   }
 
   String toQuery() {
-    return '($description ${value.toCurrency()} $category ${type.name} ${DateFormat('dd/MM/y').format(entryDate)})'.toLowerCase();
+    return '($description ${value.toCurrency()} $category ${DateFormat('dd/MM/y').format(entryDate)})'.toLowerCase();
   }
 }
